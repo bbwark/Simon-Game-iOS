@@ -52,10 +52,13 @@ extension GameView {
         func selected(tile tileIndex: Int) {
             if tileIndex == sequenceToRemember[currentToInsert] {
                 currentToInsert += 1
+                checkWin()
             } else {
                 lose()
-                return
             }
+        }
+        
+        func checkWin() {
             if sequenceToRemember.count <= currentToInsert {
                 win()
             }
