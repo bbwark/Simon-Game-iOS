@@ -17,6 +17,8 @@
 		155FAA562911A8DB00F77B88 /* fa.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 155FAA522911A8DB00F77B88 /* fa.mp3 */; };
 		155FAA572911A8DB00F77B88 /* mi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 155FAA532911A8DB00F77B88 /* mi.mp3 */; };
 		155FAA582911A8DB00F77B88 /* re.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 155FAA542911A8DB00F77B88 /* re.mp3 */; };
+		CD9998852912D46000DC1281 /* TileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9998842912D46000DC1281 /* TileViewModel.swift */; };
+		CD999887291330DE00DC1281 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD999886291330DE00DC1281 /* GameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		155FAA522911A8DB00F77B88 /* fa.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fa.mp3; sourceTree = "<group>"; };
 		155FAA532911A8DB00F77B88 /* mi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mi.mp3; sourceTree = "<group>"; };
 		155FAA542911A8DB00F77B88 /* re.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = re.mp3; sourceTree = "<group>"; };
+		CD9998842912D46000DC1281 /* TileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileViewModel.swift; sourceTree = "<group>"; };
+		CD999886291330DE00DC1281 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 		1507E6DE290C288F00C490AB /* Tile */ = {
 			isa = PBXGroup;
 			children = (
+				CD9998842912D46000DC1281 /* TileViewModel.swift */,
 				150C1AA4290BEC6F0023D56E /* TileView.swift */,
 			);
 			path = Tile;
@@ -57,6 +62,7 @@
 			children = (
 				1507E6DE290C288F00C490AB /* Tile */,
 				150C1A92290BEBEF0023D56E /* ContentView.swift */,
+				CD999886291330DE00DC1281 /* GameViewModel.swift */,
 				150C1AA0290BEC370023D56E /* GameView.swift */,
 			);
 			path = Views;
@@ -191,10 +197,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD999887291330DE00DC1281 /* GameViewModel.swift in Sources */,
 				150C1A93290BEBEF0023D56E /* ContentView.swift in Sources */,
 				150C1AA1290BEC370023D56E /* GameView.swift in Sources */,
 				150C1A91290BEBEF0023D56E /* Simon_Game_iOSApp.swift in Sources */,
 				150C1AA5290BEC6F0023D56E /* TileView.swift in Sources */,
+				CD9998852912D46000DC1281 /* TileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

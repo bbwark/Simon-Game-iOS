@@ -8,31 +8,39 @@
 import SwiftUI
 
 struct TileView: View {
-    var color: Color
+    @ObservedObject var model: ViewModel
     
-    @Binding var bright: Bool
+    init(_ model: ViewModel) {
+        self.model = model
+    }
+    
+    private func onTapDef() {
+        Task {
+            await model.tap()
+        }
+    }
     
     var body: some View {
         ZStack{
             Rectangle()
                 .frame(width: 100.0, height: 100.0)
                 .cornerRadius(20.0)
-                .foregroundColor(color)
+                .foregroundColor(model.color)
             
             Rectangle()
                 .frame(width: 80.0, height: 80.0)
                 .cornerRadius(20.0)
-                .foregroundColor(bright ? .white : color)
+                .foregroundColor(model.brighting ? .white : model.color)
                 .shadow(radius: 50.0)
                 .blur(radius: 2.5)
+        } .onTapGesture {
+            model.onTap?()
         }
     }
-    
-    
 }
 
 struct TileView_Previews: PreviewProvider {
     static var previews: some View {
-        TileView(color: .red, bright: .constant(false))
+        TileView(TileView.ViewModel(color: .red, sound: 1201))
     }
 }
