@@ -21,8 +21,8 @@ extension TileView {
             get {
                 if abled {
                     return {
-                        Task {
-                            await self.tap()
+                        Task.init {
+                            try await self.tap()
                         }
                         self._onTap?()
                     }
@@ -47,7 +47,6 @@ extension TileView {
         func animationOn() async {
             withAnimation {
                 brighting = true
-                onTap!()
             }
         }
         
@@ -58,13 +57,15 @@ extension TileView {
             }
         }
         
-        func tap(duration: Double = 1.0) async {
-                await animationOn()
-                if sound != nil {
-                    AudioServicesPlaySystemSound(SystemSoundID(sound!))
-                }
-                sleep(1)
-                await animationOff()
+        func tap(duration: Double = 1.0) async throws {
+            let t: UInt64 = UInt64(duration*500000000)
+            await animationOn()
+            if sound != nil {
+                AudioServicesPlaySystemSound(SystemSoundID(sound!))
+            }
+            try await Task.sleep(nanoseconds: t)
+            await animationOff()
+            try await Task.sleep(nanoseconds: t)
         }
     }
 }

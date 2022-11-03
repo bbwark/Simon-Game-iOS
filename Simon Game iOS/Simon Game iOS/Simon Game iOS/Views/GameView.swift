@@ -11,7 +11,6 @@ struct GameView: View {
     @ObservedObject var model: ViewModel = ViewModel()
     
     var body: some View {
-        
         VStack{
             Text("\(model.points)")
                 .font(.largeTitle)
@@ -36,12 +35,10 @@ struct GameView: View {
             } label: {
                 Text("Start")
             }
-            .offset(y: model.playing ? 200 : -80.0)
-            .disabled(model.playing)
+                .disabled(model.inRound)
+                .offset(y: -80.0)
         }
     }
-    
-    typealias StepComplete = () -> Void
 }
 
 struct GameView_Previews: PreviewProvider {

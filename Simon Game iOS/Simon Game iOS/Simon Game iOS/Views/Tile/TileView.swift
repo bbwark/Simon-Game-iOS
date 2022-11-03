@@ -14,12 +14,6 @@ struct TileView: View {
         self.model = model
     }
     
-    private func onTapDef() {
-        Task {
-            await model.tap()
-        }
-    }
-    
     var body: some View {
         ZStack{
             Rectangle()

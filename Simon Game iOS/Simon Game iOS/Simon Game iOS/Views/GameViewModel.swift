@@ -17,78 +17,75 @@ extension GameView {
             TileView.ViewModel(color: .green, sound: 1202),
             TileView.ViewModel(color: .yellow, sound: 1203),
         ]
-        @Published var sequenceToRemember : [Int] = []
-        @Published var sequenceToInsert : [Int] = []
         
-        @Published var insertedValue : Int = -1
+        var sequenceToRemember : [Int] = []
+        var currentToInsert: Int = 0
         
-        @Published var touchable = false
-        
-        @Published var listening = false
-        
-        @Published var playing = false
-        
+        @Published var inRound = false
         
         init() {
             for i in 0..<4 {
                 tile[i].onTap = {
-                    self.sequenceToInsert.append(i)
+                    self.selected(tile: i)
                 }
             }
+            tilesTappable(false)
         }
         
         
-        func startRound() -> Void {
-            playing = true
-            sequenceToRemember.append(Int.random(in: 1...4))
-            print("play")
-            playSequence(sequence: sequenceToRemember)
-            sequenceToInsert.removeAll()
-            listening = true
-            print("\(sequenceToRemember)")
-            print("listening")
+        func startRound() {
+            currentToInsert = 0
+            populate()
+            playSequence()
         }
         
-        func playSequence(sequence: [Int]) -> Void {
-            touchable = false
+        func playSequence(sequence: [Int]? = nil) {
             Task {
-                for num in sequence {
-                    await tile[num].tap()
+                inRound = true
+                for tileIndex in sequence ?? sequenceToRemember {
+                    try await tile[tileIndex].tap()
                 }
-                touchable = true
+                tilesTappable(true)
             }
-            //continue the execution of the program after the sequence completed to run
-            while !touchable {}
         }
         
-        func checkNextRound() {
-            if(listening){
-                
-                //check if the last element inserted in position N is the same in position N of the corresponding sequence: if it is not, then it resets both sequences, resets the points, sets listening false; if it is then check if the sequences are of the same length: if they are then add a period, set listening to false, call the next round
-                
-                let lastInsertedIndex : Int = sequenceToInsert.count - 1
-                
-                print("\(lastInsertedIndex): inserted \(sequenceToInsert[lastInsertedIndex])/\(sequenceToRemember[lastInsertedIndex]) to remember")
-                
-                if(sequenceToInsert[lastInsertedIndex] == sequenceToRemember[lastInsertedIndex]){
-                    print("SAME")
-                    if(sequenceToInsert.count == sequenceToRemember.count){
-                        print("ENTERELY SAME")
-                        points += 1
-                        listening = false
-                        touchable = false
-                        startRound()
-                    }
-                }
-                else{
-                    print("NOT SAME")
-                    points = 0
-                    listening = false
-                    sequenceToInsert.removeAll()
-                    sequenceToRemember.removeAll()
-                    playing = false
-                    touchable = false
-                }
+        func selected(tile tileIndex: Int) {
+            if tileIndex == sequenceToRemember[currentToInsert] {
+                currentToInsert += 1
+            } else {
+                lose()
+                return
+            }
+            if sequenceToRemember.count <= currentToInsert {
+                win()
+            }
+        }
+        
+        func lose() {
+            points = 0
+            sequenceToRemember = []
+            finishRound()
+        }
+        
+        func win() {
+            points += 1
+            finishRound()
+        }
+        
+        func finishRound() {
+            inRound = false
+            tilesTappable(false)
+        }
+        
+        func populate(_ quantity: Int = 1) {
+            for _ in 0..<quantity {
+                sequenceToRemember.append(Int.random(in: 0..<4))
+            }
+        }
+        
+        func tilesTappable(_ tappable: Bool) {
+            for t in tile {
+                t.abled = tappable
             }
         }
     }
