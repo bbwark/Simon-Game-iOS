@@ -58,7 +58,7 @@ extension TileView {
         }
         
         func tap(duration: Double = 1.0) async throws {
-            let t: UInt64 = UInt64(duration*500000000)
+            let t: UInt64 = UInt64(duration*500_000_000)
             await animationOn()
             if sound != nil {
                 AudioServicesPlaySystemSound(SystemSoundID(sound!))

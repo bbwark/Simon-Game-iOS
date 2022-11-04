@@ -39,13 +39,12 @@ extension GameView {
             currentToInsert = 0
             populate()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
-                self.playSequence()
-            }
+            self.playSequence()
         }
         
         func playSequence(sequence: [Int]? = nil) {
             Task {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
                 inRound = true
                 for tileIndex in sequence ?? sequenceToRemember {
                     try await tile[tileIndex].tap()
