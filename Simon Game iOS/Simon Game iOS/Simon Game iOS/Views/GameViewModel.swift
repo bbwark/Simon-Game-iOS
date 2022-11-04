@@ -22,6 +22,7 @@ extension GameView {
         var currentToInsert: Int = 0
         
         @Published var inRound = false
+        @Published var inGame = false
         
         init() {
             for i in 0..<4 {
@@ -34,9 +35,13 @@ extension GameView {
         
         
         func startRound() {
+            inGame = true
             currentToInsert = 0
             populate()
-            playSequence()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                self.playSequence()
+            }
         }
         
         func playSequence(sequence: [Int]? = nil) {
@@ -67,12 +72,14 @@ extension GameView {
         func lose() {
             points = 0
             sequenceToRemember = []
+            inGame = false
             finishRound()
         }
         
         func win() {
             points += 1
             finishRound()
+            startRound()
         }
         
         func finishRound() {

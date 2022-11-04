@@ -35,7 +35,7 @@ struct GameView: View {
             } label: {
                 Text("Start")
             }
-                .disabled(model.inRound)
+                .disabled(model.inGame)
                 .offset(y: -80.0)
         }
     }
