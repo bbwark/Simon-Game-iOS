@@ -38,8 +38,7 @@ extension GameView {
             inGame = true
             currentToInsert = 0
             populate()
-            
-            self.playSequence()
+            playSequence()
         }
         
         func playSequence(sequence: [Int]? = nil) {
