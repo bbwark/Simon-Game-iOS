@@ -18,6 +18,10 @@ struct GameView: View {
                 
                 Spacer()
                 
+                Text("Sequence Playing")
+                    .foregroundColor(model.isPlaying ? .blue : .clear)
+                    .animation(.linear(duration: 0.07))
+                
                 HStack{
                     TileView(model.tile[0])
                     TileView(model.tile[1])
@@ -30,6 +34,7 @@ struct GameView: View {
                 
                 Spacer()
             }
+            
             if !model.inGame {
                 VStack {
                     Spacer()

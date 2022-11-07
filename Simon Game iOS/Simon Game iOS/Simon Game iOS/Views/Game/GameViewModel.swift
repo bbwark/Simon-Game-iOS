@@ -21,7 +21,7 @@ extension GameView {
         var sequenceToRemember : [Int] = []
         var currentToInsert: Int = 0
         
-        @Published var inRound = false
+        @Published var isPlaying = false
         @Published var inGame = false
         
         init() {
@@ -44,10 +44,11 @@ extension GameView {
         func playSequence(sequence: [Int]? = nil) {
             Task {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
-                inRound = true
+                isPlaying = true
                 for tileIndex in sequence ?? sequenceToRemember {
                     try await tile[tileIndex].tap()
                 }
+                isPlaying = false
                 tilesTappable(true)
             }
         }
@@ -81,7 +82,6 @@ extension GameView {
         }
         
         func finishRound() {
-            inRound = false
             tilesTappable(false)
         }
         
