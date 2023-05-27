@@ -25,7 +25,7 @@ extension GameView {
         @Published var inGame = false
         
         init() {
-            for i in 0..<4 {
+            for i in 0..<tile.count {
                 tile[i].onTap = {
                     self.selected(tile: i)
                 }

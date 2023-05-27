@@ -12,11 +12,13 @@ struct StartButtonView: View {
     @State var shine = false
     
     var body: some View {
+        
+        
         let frame = Rectangle()
             .frame(width: 140.0, height: 50.0)
             .cornerRadius(15.0)
         
-        return ZStack {
+        ZStack {
             frame.foregroundColor(.white)
             ZStack{
                 ZStack {
